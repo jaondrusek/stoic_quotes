@@ -5,7 +5,7 @@ var quote = require('./quote.js');
 
 var schedule = require('node-schedule');
 
-var j = schedule.scheduleJob('* * * * *', function() {
+var j = schedule.scheduleJob('0 0 * * *', function() {
     console.log('GETTING NEW QUOTE');
     quote.set_new_quote(function() {});
 });
