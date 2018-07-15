@@ -1,9 +1,18 @@
 var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
+var quote = require('./quote.js');
+
+var schedule = require('node-schedule');
+
+var j = schedule.scheduleJob('* * * * *', function() {
+    console.log('GETTING NEW QUOTE');
+    quote.set_new_quote(function() {});
+});
 
 var handle = {};
 handle["/"] = requestHandlers.start;
-handle["/start"] = requestHandlers.start;
 
-server.start(router.route, handle);
+quote.set_new_quote(function() {
+    server.start(router.route, handle);
+});

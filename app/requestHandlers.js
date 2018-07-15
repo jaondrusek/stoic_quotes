@@ -7,7 +7,7 @@ function error_page(response) {
     response.end();
 }
 
-function start(response) {
+function start(response, quote) {
     console.log("Request handler 'start' was called.");
 
     fs.readFile(__dirname + "/html/quote_main.html", 'utf-8', function(err, data) {
@@ -15,11 +15,14 @@ function start(response) {
             console.log(err);
             error_page(response);
         } else {
+            data = data.replace('%%QUOTE%%', quote);
             response.writeHead(200, {"Content-Type": "text/html"});
             response.write(data);
             response.end();
         }
     });
+
 }
+
 
 exports.start = start;
